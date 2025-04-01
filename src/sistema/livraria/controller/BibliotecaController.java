@@ -95,6 +95,31 @@ public class BibliotecaController implements BibliotecaRepository {
 
 	@Override
 	public void devolverLivro(Livro livro) {
+		Emprestimo emprestimoParaRemover = null;
 		
+		for(Emprestimo emprestimo : emprestimos) {
+			if(emprestimo.getLivro().equals(livro) && emprestimo.isAtivo()) {
+				emprestimo.setAtivo(false);
+				livro.setDisponivel(true);
+				emprestimoParaRemover = emprestimo;
+				break;
+			}
+		}
+		
+		if(emprestimoParaRemover != null) {
+			livros.add(livro);
+			System.out.println("Livro " + " devolvido com sucesso.");
+		}else {
+			System.out.println("Erro: O livro não está emprestado ou já foi devolvido.");
+		}
+	}
+
+	@Override
+	public Livro buscarLivroPorNomeOuAutor(String nome) {
+		for (Livro livro : livros) {
+			if(livro.getTitulo().equalsIgnoreCase(nome) || livro.getAutor().getNome().equalsIgnoreCase(nome)) {
+				return livro;
+			}
+		} return null;
 	}
 }

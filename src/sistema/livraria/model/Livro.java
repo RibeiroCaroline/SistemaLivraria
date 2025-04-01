@@ -10,17 +10,15 @@ public class Livro {
 	private String titulo;
 	private Autor autor;
 	private boolean disponivel; 
-	private LocalDateTime dataCadastro; 
-	//private LocalDateTime dataAtualizacao;
+	private LocalDateTime dataCadastro;
 	
 	
-	public Livro(String id, String titulo, Autor autor, boolean disponivel, LocalDateTime dataCadastro) {
+	public Livro(String titulo, Autor autor, boolean disponivel, LocalDateTime dataCadastro) {
 		this.id = contador++;
 		this.titulo = titulo;
 		this.autor = autor;
 		this.disponivel = disponivel == true;
 		this.dataCadastro = dataCadastro;
-		//this.dataAtualizacao = dataAtualizacao;
 	}
 
 
@@ -98,7 +96,7 @@ public class Livro {
 		if (disponivel == true) {
 			System.out.println("ID: " + this.id);
 			System.out.println("Título: " + this.titulo);
-			System.out.println("Autor: " + autor.getNome());
+			System.out.println("Autor: " + autor.getNome() + "\n");
 		}
 	}
 	

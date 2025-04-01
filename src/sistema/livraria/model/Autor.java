@@ -13,6 +13,12 @@ public class Autor {
 		this.nome = nome;
 		this.dataNascimento = dataNascimento;
 	}
+	
+	public Autor(String nome) {
+		this.nome = nome;
+		this.dataNascimento = null;
+	}
+
 
 	public static int getContador() {
 		return contador;

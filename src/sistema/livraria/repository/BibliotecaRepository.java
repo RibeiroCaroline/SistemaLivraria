@@ -22,6 +22,8 @@ public interface BibliotecaRepository {
 	public void consultarHistoricoUsuario(Usuario usuario);
 	
 	public void devolverLivro(Livro livro);
+	
+	public Livro buscarLivroPorNomeOuAutor(String nome);
 
 
 }

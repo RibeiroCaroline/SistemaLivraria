@@ -1,5 +1,6 @@
 package sistema.livraria;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Scanner;
@@ -14,7 +15,11 @@ public class Menu {
 
 	public static void main(String[] args) {
 		
-		BibliotecaController bibliotecaController = new BibliotecaController(); 
+		Scanner leia = new Scanner (System.in);
+		String nomeUsuario, titulo, nomeAutor, opcao;
+		int idLivro;
+		
+		BibliotecaController bibliotecaController = new BibliotecaController();
 		
 		//Autores 
 		 Autor autor1 = new Autor("J.K. Rowling", LocalDate.of(1965, 7, 31));
@@ -24,15 +29,15 @@ public class Menu {
 	     Autor autor5 = new Autor("Machado de Assis", LocalDate.of(1839, 6, 21));
 	     
 	     //Livros 
-	     Livro livro1 = new Livro("0", "Harry Potter e a Pedra Filosofal", autor1, true, LocalDateTime.now());
+	     Livro livro1 = new Livro("Harry Potter e a Pedra Filosofal", autor1, true, LocalDateTime.now());
 	     bibliotecaController.cadastrarLivro(livro1);
-	     Livro livro2 = new Livro("1", "1984", autor2, true, LocalDateTime.now().minusDays(10));
+	     Livro livro2 = new Livro("1984", autor2, true, LocalDateTime.now().minusDays(10));
 	     bibliotecaController.cadastrarLivro(livro2);
-	     Livro livro3 = new Livro("2", "Orgulho e Preconceito", autor3, true, LocalDateTime.now().minusMonths(2));
+	     Livro livro3 = new Livro("Orgulho e Preconceito", autor3, true, LocalDateTime.now().minusMonths(2));
 	     bibliotecaController.cadastrarLivro(livro3);
-	     Livro livro4 = new Livro("3", "O Senhor dos Anéis", autor4, true, LocalDateTime.now());
+	     Livro livro4 = new Livro("O Senhor dos Anéis", autor4, true, LocalDateTime.now());
 	     bibliotecaController.cadastrarLivro(livro4);
-	     Livro livro5 = new Livro("4", "Dom Casmurro", autor5, true, LocalDateTime.now());
+	     Livro livro5 = new Livro("Dom Casmurro", autor5, true, LocalDateTime.now());
 	     bibliotecaController.cadastrarLivro(livro5);
 	     
 	     
@@ -57,28 +62,50 @@ public class Menu {
 	  // 🔎 Testando o histórico de um usuário (Alice)
 	     System.out.println("\n=== Histórico de Empréstimos para Usuário: Alice ===");
 	     bibliotecaController.consultarHistoricoUsuario(usuario1);
-
-		
-		Scanner leia = new Scanner (System.in);
-		String opcao = null;
-		String nomeUsuario;
-		int idLivro;
+	     
+	     bibliotecaController.listarLivrosDisponiveis();
+	     
+	     bibliotecaController.devolverLivro(livro1);
+	     
+	     bibliotecaController.listarLivrosDisponiveis();
+	     
+	     bibliotecaController.emprestarLivro(livro1, usuario2);
+	     
+	     bibliotecaController.consultarHistoricoLivro(livro1);
 		
 		while(true) {
-			System.out.println("------------------------------------------------");
-			System.out.println("                   HELÔ LIVRARIA                ");
-			System.out.println("Você deseja ver os livros disponíveis? [SIM/NAO]");
-			System.out.println("------------------------------------------------");
+			System.out.println("-------------------------------------------------------");
+			System.out.println("                       HELÔ LIVRARIA                   ");
+			System.out.println("     1 - Se você deseja cadastrar um novo livro        ");
+			System.out.println("     2 - Se você deseja ver os livros disponíveis      ");
+			System.out.println("     3 - Sair                                          ");
+			System.out.println("-------------------------------------------------------");
 			
-			opcao = leia.next().toUpperCase();
+			opcao = leia.nextLine();
 			
 			switch (opcao) {
-			case "SIM": 
+			case "1":
+				System.out.println("Digite o título do livro: ");
+				titulo = leia.nextLine();
 				
+				System.out.println("Digite o nome do autor: ");
+				nomeAutor = leia.nextLine();
 				
-				System.out.println("Escolha um livro pelo ID: ");
+				Autor autor = new Autor (nomeAutor);
+				
+				Livro livro = new Livro(titulo, autor, true, LocalDateTime.now());
+				
+				bibliotecaController.cadastrarLivro(livro);		
+				
+				KeyPress();
+				break;
+				
+			case "2": 
+				System.out.println("Escolha um livro pelo ID: \n");
 				bibliotecaController.listarLivrosDisponiveis();
 				idLivro = leia.nextInt();
+				
+				 leia.nextLine();
 				
 				System.out.println("Agora digite o seu nome: ");
 				nomeUsuario = leia.next();
@@ -89,15 +116,33 @@ public class Menu {
 				
 				bibliotecaController.emprestarLivro(livroEscolhido, usuario);
 				
+				KeyPress();
 				break;
-				
-			case "NAO": 
+			case "3": 
 				System.out.println("Helô livraria agradece por utilizar nosso sistema. Volte sempre! ");
 				leia.close();
 				System.exit(0);
+				
+			default:
+				System.out.println("Opção Inválida!\n");
+				break;
 			}
-		
 		}
 	}
+	public static void sobre() {
+		System.out.println("\n****************************************************");
+		System.out.println("Projeto Desenvolvido por: Caroline Ribeiro");
+		System.out.println("Caroline Ribeiro - carolineribeiro1996@gmail.com");
+		System.out.println("github.com/RibeiroCaroline");
+		System.out.println("****************************************************");
+	}
 
+	public static void KeyPress() {
+		try {
+			System.out.println("\n\nPressione Enter para Continuar...");
+			System.in.read();
+		} catch (IOException e) {
+			System.out.println("Você pressionou uma tecla diferente de enter! ");
+		}
+	}
 }

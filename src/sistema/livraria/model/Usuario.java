@@ -8,7 +8,6 @@ public class Usuario {
 	private String dataNascimento;
 	private String email;
 	
-	// permitir criar obj usuario a partir somente do nome
 	public Usuario(int id, String nome, String dataNascimento, String email) {
 		this.id = contador++;
 		this.nome = nome;
