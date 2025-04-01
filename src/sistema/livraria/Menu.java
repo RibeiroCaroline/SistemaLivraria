@@ -76,8 +76,8 @@ public class Menu {
 		while(true) {
 			System.out.println("-------------------------------------------------------");
 			System.out.println("                       HELÔ LIVRARIA                   ");
-			System.out.println("     1 - Se você deseja cadastrar um novo livro        ");
-			System.out.println("     2 - Se você deseja ver os livros disponíveis      ");
+			System.out.println("     1 - Cadastrar um novo livro                       ");
+			System.out.println("     2 - Ver os livros disponíveis e fazer empréstimo  ");
 			System.out.println("     3 - Sair                                          ");
 			System.out.println("-------------------------------------------------------");
 			
@@ -103,12 +103,12 @@ public class Menu {
 			case "2": 
 				System.out.println("Escolha um livro pelo ID: \n");
 				bibliotecaController.listarLivrosDisponiveis();
-				idLivro = leia.nextInt();
 				
-				 leia.nextLine();
+				idLivro = leia.nextInt();
+				leia.nextLine();
 				
 				System.out.println("Agora digite o seu nome: ");
-				nomeUsuario = leia.next();
+				nomeUsuario = leia.nextLine();
 				
 				Livro livroEscolhido = bibliotecaController.buscarLivroPorId(idLivro);	
 				
@@ -118,13 +118,18 @@ public class Menu {
 				
 				KeyPress();
 				break;
+				
 			case "3": 
 				System.out.println("Helô livraria agradece por utilizar nosso sistema. Volte sempre! ");
+				sobre();
 				leia.close();
 				System.exit(0);
 				
+				
 			default:
 				System.out.println("Opção Inválida!\n");
+				
+				KeyPress();
 				break;
 			}
 		}
